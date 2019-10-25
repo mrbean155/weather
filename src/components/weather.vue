@@ -3,11 +3,12 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-header">
-            <h3>Weather in Katowice, PL</h3>
+            <h3>Weather in {{ city }}, PL</h3>
           </div>
           <div class="card-body">
             <div id="weatherApp">
               <div class="weather-details">
+                  <span class="time">{{ setTime() }}</span> &amp;
                   <span class="temp">{{ temp }}</span>&deg;C
               </div>
               <div class="btn-group">
@@ -21,6 +22,7 @@
       <div class="card">
         <div class="card-body">
           <div id="chart">
+            <chartcontainer/>
           </div>
         </div>
       </div>
@@ -29,29 +31,28 @@
 </template>
 
 <script>
+import chartcontainer from './chartcontainer'
+
 export default {
   name: 'weather',
   data() {return {
       temp: 10,
       time: new Date(),
+      city: 'Katowice'
   }},
+  components: {
+    chartcontainer
+  },
   methods: {
+    setTime: function() {
+      var timeAtLoad = this.time;
+      return timeAtLoad.toLocaleTimeString([], {timeZone: 'Europe/Warsaw', hour: '2-digit', minute:'2-digit', hour12: true})
+    },
+    setLocation: function() {
+      return 111;
+    },
     getData: function() {
-      var method = "GET";
-      var url = "http://api.openweathermap.org/data/2.5/forecast?id=3096472&APPID=7d0e6193982fab64b6809bed2ad00c0c";
-      var xhr = new XMLHttpRequest();
-      xhr.open(method, url);
-      xhr.onload = function () {
-        if (xhr.readyState === xhr.DONE) {
-          if (xhr.status === 200) {
-            var data = JSON.parse(xhr.response);
-            console.log(data);
-          }else{
-            console.log("Retrieve API data failed!");
-          }
-        }
-      };
-      xhr.send();
+
     }
   }
 }

@@ -10,8 +10,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
     "vue": "^2.5.2",
-    "bootstrap": "^4.3.1"
+    "vue-chartjs": "^3.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
