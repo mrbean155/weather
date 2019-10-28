@@ -7,7 +7,10 @@
         </div>
         <div class="card-body">
           <div class="weather-details">
-            <h4><b>{{ temperature }}&deg;C</b></h4>
+            <h4>
+              <img :src=" 'http://openweathermap.org/img/wn/' + icon + '@2x.png'" width="60px" height="60px" alt="">
+              <b>{{ temperature }}&deg;C</b>
+            </h4>
             <h4>{{ description }}</h4>
 
             <table class="table">
@@ -51,6 +54,7 @@
       kelvin_base: 273.15,
       city: null,
       country: null,
+      icon: null,
 
       info_loaded: false,
       loaded: false,
@@ -86,6 +90,7 @@
 
               this.city = data.name;
               this.country = data.sys.country;
+              this.icon = data.weather[0].icon;
 
               this.temperature = Number((data.main.temp - this.kelvin_base).toFixed(1));
               this.humidity = data.main.humidity;
