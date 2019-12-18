@@ -153,12 +153,21 @@
       }
     },
     mounted:function(){
-      this.getInfo();
-      this.getData();
-      setInterval(() => {
-        this.getInfo();
-        this.getData();
-      }, 20000)
+      var that = this;
+      var p = new Promise(function(resolve) {
+        that.getInfo();
+        that.getData();
+          resolve();
+      });
+      for (var i = 0; i < 20000; i++) {
+        p = p.then(v => new Promise(resolve =>
+          setTimeout(function () {
+            that.getInfo();
+            that.getData();
+            resolve();
+          }, 20000)
+        ));
+      }
     },
   }
 </script>
